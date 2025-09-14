@@ -1,0 +1,49 @@
+{
+  "cookies": [
+    {
+      "name": "authtoken",
+      "value": "5OflZFbQmh8s/GlPJKCfmUcZCzQJtepeiONmiBgTKv8=",
+      "domain": "eu-app.contentstack.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__cs_user",
+      "value": "blt85cebf25a14786c4",
+      "domain": "eu-app.contentstack.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_dd_s",
+      "value": "rum=0&expire=1757021621080",
+      "domain": "eu-app.contentstack.com",
+      "path": "/",
+      "expires": 1757021621,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://eu-app.contentstack.com",
+      "localStorage": [
+        {
+          "name": "organization",
+          "value": "{\"cs8922145fd00bd201\":\"blt96679ffbd5c3eaa7\"}"
+        },
+        {
+          "name": "debug",
+          "value": "*:warn,*:error"
+        }
+      ]
+    }
+  ]
+}

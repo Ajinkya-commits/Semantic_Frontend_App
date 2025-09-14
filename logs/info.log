@@ -1,0 +1,3 @@
+{"level":"warn","message":"As app-boilerplate is a stack app, it can only be installed in a stack. Please select a stack."}
+{"level":"info","message":"Installing app-boilerplate on stack blt074f5a0bda23cbb9."}
+{"level":"info","message":"Please use $ csdx app:reinstall to reinstall the app."}
