@@ -9,7 +9,6 @@ const AppConfigurationExtension: React.FC = () => {
   const { installationData, setInstallationData } = useInstallationData();
 
   const fields = {
-    contentstack_stack_api_key: useRef<HTMLInputElement>(null),
     contentstack_delivery_token: useRef<HTMLInputElement>(null),
     contentstack_environment: useRef<HTMLInputElement>(null),
     pinecone_api_key: useRef<HTMLInputElement>(null),
@@ -20,7 +19,6 @@ const AppConfigurationExtension: React.FC = () => {
 const updateConfig = () => {
   const config = {
     configuration: {
-      contentstack_stack_api_key: fields.contentstack_stack_api_key.current?.value || "",
       contentstack_delivery_token: fields.contentstack_delivery_token.current?.value || "",
       contentstack_environment: fields.contentstack_environment.current?.value || "",
       pinecone_environment: fields.pinecone_environment.current?.value || "",
@@ -37,7 +35,6 @@ const updateConfig = () => {
     setInstallationData(config);
   }
 };
-
 
   const getValue = (key: string, isSecure = false): string => {
     const value = isSecure
@@ -89,11 +86,6 @@ const updateConfig = () => {
           <p className={styles.locationDescriptionText}>Contentstack Configuration</p>
           <div className={`${styles.configContainer}`}>
             {renderField(
-              "Stack API Key",
-              "contentstack_stack_api_key",
-              "Your Contentstack Stack API Key"
-            )}
-            {renderField(
               "Delivery Token",
               "contentstack_delivery_token",
               "Content Delivery Token"
@@ -118,6 +110,11 @@ const updateConfig = () => {
               "Pinecone Environment",
               "pinecone_environment",
               "e.g., gcp-starter, us-east1-gcp"
+            )}
+            {renderField(
+              "Pinecone Index Name",
+              "pinecone_index_name",
+              "Name of the index"
             )}
           </div>
         </div>

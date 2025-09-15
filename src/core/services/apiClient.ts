@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
@@ -14,12 +14,6 @@ export const apiClient: AxiosInstance = axios.create({
 // Request interceptor to add auth headers
 apiClient.interceptors.request.use(
   (config) => {
-    // Add stack API key if available
-    const stackApiKey = localStorage.getItem('stackApiKey');
-    if (stackApiKey) {
-      config.headers['x-stack-api-key'] = stackApiKey;
-    }
-
     // Add environment parameter
     const environment = localStorage.getItem('environment') || 'development';
     if (config.method === 'get' && !config.params) {
@@ -44,9 +38,8 @@ apiClient.interceptors.response.use(
   (error) => {
     // Handle common errors
     if (error.response?.status === 401) {
-      // Clear invalid tokens
-      localStorage.removeItem('stackApiKey');
-      // Could redirect to auth page
+      // Handle authentication errors
+      console.warn('Authentication failed. Please check your credentials.');
     }
 
     if (error.response?.status === 429) {
