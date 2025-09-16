@@ -1,24 +1,10 @@
 import { apiClient } from '../apiClient';
 import type { 
-  FieldConfig, 
   SystemConfig, 
-  ContentType,
-  UpdateFieldConfigParams 
+  ContentType
 } from '../../types/config';
 
 export const configApi = {
-  // Get field configurations
-  getFieldConfigs: async (): Promise<FieldConfig[]> => {
-    const response = await apiClient.get('/config/fields');
-    return response.data.fieldConfigs;
-  },
-
-  // Update field configurations
-  updateFieldConfigs: async (params: UpdateFieldConfigParams) => {
-    const response = await apiClient.post('/config/fields', params);
-    return response.data;
-  },
-
   // Get system configuration
   getSystemConfig: async (): Promise<SystemConfig> => {
     const response = await apiClient.get('/config/system');

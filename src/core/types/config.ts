@@ -1,22 +1,3 @@
-export interface FieldConfig {
-  stackApiKey: string;
-  contentType: string;
-  fieldUid: string;
-  includeInEmbedding: boolean;
-  weight: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface UpdateFieldConfigParams {
-  configs: Array<{
-    contentType: string;
-    fieldUid: string;
-    includeInEmbedding: boolean;
-    weight: number;
-  }>;
-}
-
 export interface SystemConfig {
   embedding: {
     model: string;

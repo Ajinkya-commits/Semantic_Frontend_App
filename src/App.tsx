@@ -10,25 +10,24 @@ function App() {
 
   return (
     <div className="App">
-      {/* Navigation Header */}
       <header style={{
         backgroundColor: '#fff',
         borderBottom: '1px solid #e9ecef',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        padding: '0 20px',
         position: 'sticky',
         top: 0,
-        zIndex: 100
+        zIndex: 1000,
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
       }}>
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 20px',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
+          justifyContent: 'space-between',
           height: '64px'
         }}>
-          {/* Logo */}
+          {/* Logo/Title */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -42,6 +41,8 @@ function App() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
               fontSize: '16px'
             }}>
               🔍
@@ -50,7 +51,7 @@ function App() {
               margin: 0,
               fontSize: '20px',
               fontWeight: '600',
-              color: '#495057'
+              color: '#333'
             }}>
               Semantic Search
             </h1>
@@ -77,7 +78,7 @@ function App() {
               }}>
               🔍 Search
             </button>
-            
+
             <button
               onClick={() => setActivePage('indexing')}
               style={{
@@ -95,7 +96,7 @@ function App() {
                 alignItems: 'center',
                 gap: '6px'
               }}>
-              🔄 Indexing
+              ⚙️ Indexing
             </button>
           </nav>
         </div>
@@ -103,34 +104,15 @@ function App() {
 
       {/* Main Content */}
       <main style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0',
         minHeight: 'calc(100vh - 64px)',
         backgroundColor: '#f8f9fa'
       }}>
         {activePage === 'search' && <SearchPage />}
         {activePage === 'indexing' && <IndexingPage />}
       </main>
-
-      {/* Footer */}
-      <footer style={{
-        backgroundColor: '#fff',
-        borderTop: '1px solid #e9ecef',
-        padding: '20px 0',
-        textAlign: 'center'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 20px'
-        }}>
-          <p style={{
-            margin: 0,
-            color: '#6c757d',
-            fontSize: '14px'
-          }}>
-            Powered by AI • Contentstack Integration • Semantic Search Technology
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
