@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import { searchAPI } from '../services/api';
-
-export interface SearchResult {
-  uid: string;
-  title: string;
-  description: string;
-  contentType: string;
-  locale: string;
-  similarity: number;
-  rerankScore: number;
-  [key: string]: any;
-}
+import type { SearchResult } from '../core/types/search';
 
 export const useSearch = () => {
   const [query, setQuery] = useState('');

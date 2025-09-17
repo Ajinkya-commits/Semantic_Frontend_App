@@ -49,7 +49,7 @@ export const searchApi = {
     return response.data;
   },
 
-  // Get search analytics
+  // Get search analytics for dashboard
   getAnalytics: async (days?: number) => {
     const response = await apiClient.get('/search/analytics', {
       params: { days }
@@ -57,9 +57,17 @@ export const searchApi = {
     return response.data;
   },
 
-  // Get search statistics
+  // Get search statistics and capabilities
   getStats: async (): Promise<SearchStats> => {
     const response = await apiClient.get('/search/stats');
+    return response.data;
+  },
+
+  // Get performance metrics for charts
+  getPerformanceMetrics: async (hours?: number) => {
+    const response = await apiClient.get('/search/performance', {
+      params: { hours }
+    });
     return response.data;
   },
 

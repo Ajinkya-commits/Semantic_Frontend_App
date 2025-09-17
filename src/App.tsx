@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { SearchPage } from './features/search/pages/SearchPage';
 import { IndexingPage } from './features/indexing/pages/IndexingPage';
+import AnalyticsDashboard from './features/analytics/components/AnalyticsDashboard';
 import './App.css';
 
-type ActivePage = 'search' | 'indexing';
+type ActivePage = 'search' | 'indexing' | 'analytics';
 
 function App() {
   const [activePage, setActivePage] = useState<ActivePage>('search');
@@ -98,6 +99,26 @@ function App() {
               }}>
               ⚙️ Indexing
             </button>
+
+            <button
+              onClick={() => setActivePage('analytics')}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: activePage === 'analytics' ? '#007bff' : 'transparent',
+                color: activePage === 'analytics' ? 'white' : '#6c757d',
+                border: '1px solid',
+                borderColor: activePage === 'analytics' ? '#007bff' : '#e9ecef',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+              📊 Analytics
+            </button>
           </nav>
         </div>
       </header>
@@ -112,6 +133,7 @@ function App() {
       }}>
         {activePage === 'search' && <SearchPage />}
         {activePage === 'indexing' && <IndexingPage />}
+        {activePage === 'analytics' && <AnalyticsDashboard />}
       </main>
     </div>
   );

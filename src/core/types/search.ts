@@ -78,6 +78,11 @@ export interface SearchStats {
     hybridSearch: boolean;
     uploadSearch: boolean;
   };
+  indexInfo: {
+    totalVectors: number;
+    dimensions: number;
+    lastUpdated: string | null;
+  };
 }
 
 export interface SearchAnalytics {
