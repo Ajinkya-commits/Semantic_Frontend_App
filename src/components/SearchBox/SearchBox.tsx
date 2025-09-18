@@ -21,22 +21,17 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   selectedContentTypes,
   onContentTypesChange,
   contentTypes,
-  isLoadingContentTypes,
   onSearch,
   onClearSearch,
   isSearching,
   hasResults,
 }) => {
   const handleSearchClick = () => {
-    console.log('Search button clicked!');
-    console.log('Current searchQuery:', searchQuery);
-    console.log('onSearch function:', onSearch);
     onSearch();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      console.log('Enter key pressed in search input');
       handleSearchClick();
     }
   };
