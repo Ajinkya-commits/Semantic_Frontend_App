@@ -1,49 +1,57 @@
-import { useState } from 'react';
-import { searchAPI } from '../services/api';
-import type { SearchResult } from '../core/types/search';
+import { useState, useCallback } from 'react';
+import { searchApi } from '../services/api';
+import type { SearchResult, SearchParams } from '../types';
 
 export const useSearch = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string[]>([]);
 
-  const handleSearch = async (searchQuery?: string) => {
-    const q = searchQuery ?? query;
-    if (!q || typeof q !== 'string' || !q.trim()) {
-      console.log('Search cancelled - empty or invalid query');
-      return;
-    }
+  const handleSearch = useCallback(async () => {
+    if (!query.trim()) return;
+
     setLoading(true);
-    setResults([]);
-    
+    setError(null);
+
     try {
-      const response = await searchAPI.semanticSearch({
-        query: q,
-        topK: 5,
-        filters: {
-          ...(selectedType && { contentType: selectedType }),
-        },
-      });
-      setResults(response.results || []);
-    } catch (error) {
-      console.error('Search failed:', error);
+      const searchParams: SearchParams = {
+        query: query.trim(),
+        limit: 20,
+        useReranking: true,
+        contentTypes: selectedType.length > 0 ? selectedType : undefined,
+      };
+
+      const response = await searchApi.searchSemantic(searchParams);
+      
+      if (response.success) {
+        setResults(response.results);
+      } else {
+        throw new Error('Search failed');
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Search failed';
+      setError(errorMessage);
       setResults([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [query, selectedType]);
 
-  const clearSearch = () => {
-    setResults([]);
+  const clearSearch = useCallback(() => {
     setQuery('');
-  };
+    setResults([]);
+    setError(null);
+    setSelectedType([]);
+  }, []);
 
   return {
     query,
     setQuery,
     results,
     loading,
+    error,
     selectedType,
     setSelectedType,
     handleSearch,

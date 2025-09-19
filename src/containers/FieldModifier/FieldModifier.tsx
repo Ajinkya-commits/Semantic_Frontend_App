@@ -7,7 +7,7 @@ import styles from "./FieldModifier.module.css";
 import Icon from "../../assets/Field-Modifier-Icon.svg";
 import ReadOnly from "../../assets/lock.svg";
 import JsonView from "../../assets/JsonView.svg";
-import RawConfigModal from "../../components/ConfigModal/ConfigModal";
+import RawConfigModal from "../../components/Config Modal/ConfigModal";
 
 const FieldModifierExtension = () => {
   const appConfig = useAppConfig();

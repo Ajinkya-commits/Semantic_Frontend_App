@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { configApi } from '../core/services/api/configApi';
-import type { ContentType } from '../core/types/config';
+import { configApi } from '../services/api';
+import type { ContentType } from '../types';
 
 export const useContentTypes = () => {
   const [contentTypes, setContentTypes] = useState<ContentType[]>([]);
@@ -14,9 +14,9 @@ export const useContentTypes = () => {
         setError(null);
         const types = await configApi.getContentTypes();
         setContentTypes(types);
-      } catch (error) {
-        console.error('Failed to fetch content types:', error);
-        setError('Failed to fetch content types');
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch content types';
+        setError(errorMessage);
         setContentTypes([]);
       } finally {
         setLoading(false);
@@ -26,5 +26,9 @@ export const useContentTypes = () => {
     fetchContentTypes();
   }, []);
 
-  return { contentTypes, loading, error };
+  return {
+    contentTypes,
+    loading,
+    error,
+  };
 };

@@ -1,9 +1,5 @@
 import localeTexts from "../common/locales/en-us";
 
-/**
- * AppFailed component.
- * This components will be rendered if the App fails to initialize.( ContentStack SDK)
- */
 export const AppFailed = () => {
   const handleLearnMoreClick = () => {
     window.open(localeTexts.AppFailed.button.url, "_blank");

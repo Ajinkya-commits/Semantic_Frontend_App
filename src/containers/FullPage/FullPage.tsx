@@ -3,11 +3,11 @@ import { useSearch } from '../../hooks/useSearch';
 import { useReindex } from '../../hooks/useReindex';
 import { useContentTypes } from '../../hooks/useContentTypes';
 import { SearchBox } from '../../components/SearchBox/SearchBox';
-import { SearchResults } from '../../shared/components/SearchResults/SearchResults';
-import { ReindexSection } from '../../components/ReindexSection/ReindexSection';
-import { EntryDetailsModal } from '../../shared/components/EntryDetailsModal/EntryDetailsModal';
-import AnalyticsDashboard from '../../features/analytics/components/AnalyticsDashboard';
-import type { SearchResult } from '../../core/types/search';
+import { SearchResults } from '../../components/Search Result/SearchResults';
+import { ReindexSection } from '../../components/Reindex Page/ReindexSection';
+import { EntryDetailsModal } from '../../components/Entry Modal/EntryDetailsModal';
+import { AnalyticsDashboard } from '../../components';
+import type { SearchResult } from '../../types';
 
 type ActiveTab = 'search' | 'indexing' | 'analytics';
 
@@ -35,7 +35,7 @@ const FullPage: React.FC = () => {
     clearReindexResults,
   } = useReindex();
 
-  const { contentTypes, loading: contentTypesLoading, error: contentTypesError } = useContentTypes();
+  const { contentTypes, loading: contentTypesLoading } = useContentTypes();
 
   const handleShowDetails = (result: SearchResult) => {
     setSelectedEntry(result);
@@ -58,7 +58,6 @@ const FullPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Tab Navigation */}
       <div style={{ 
         display: 'flex', 
         gap: '8px', 
@@ -118,7 +117,6 @@ const FullPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Tab Content */}
       {activeTab === 'search' && (
         <>
           <SearchBox
@@ -166,11 +164,14 @@ const FullPage: React.FC = () => {
         </div>
       )}
 
-      <EntryDetailsModal
-        selectedEntry={selectedEntry}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
+      {selectedEntry && (
+        <EntryDetailsModal
+          selectedEntry={selectedEntry}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          contentTypes={contentTypes}
+        />
+      )}
 
       <style>
         {`

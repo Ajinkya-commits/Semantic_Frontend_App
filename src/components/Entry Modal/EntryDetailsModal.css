@@ -1,0 +1,252 @@
+.entry-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.entry-modal {
+  background-color: white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.entry-modal-header {
+  padding: 24px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-modal-header h2 {
+  margin: 0;
+  color: #495057;
+}
+
+.entry-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 4px;
+}
+
+.entry-modal-content {
+  margin: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.entry-modal-title-section {
+  margin-bottom: 24px;
+}
+
+.entry-modal-title {
+  margin: 0 0 12px 0;
+  color: #495057;
+  font-size: 20px;
+}
+
+.entry-modal-tags {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.entry-modal-tag-content-type {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.entry-modal-tag-locale {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.entry-modal-tag-uid {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.entry-modal-section {
+  margin-bottom: 24px;
+}
+
+.entry-modal-section h4 {
+  margin: 0 0 12px 0;
+  color: #495057;
+}
+
+.entry-modal-description {
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #495057;
+}
+
+.entry-modal-scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.entry-modal-score-similarity {
+  padding: 16px;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  border: 1px solid #bbdefb;
+}
+
+.entry-modal-score-similarity .score-label {
+  font-size: 12px;
+  color: #1976d2;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.entry-modal-score-similarity .score-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.entry-modal-score-similarity .score-description {
+  font-size: 11px;
+  color: #1976d2;
+}
+
+.entry-modal-score-rerank {
+  padding: 16px;
+  background-color: #f3e5f5;
+  border-radius: 8px;
+  border: 1px solid #ce93d8;
+}
+
+.entry-modal-score-rerank .score-label {
+  font-size: 12px;
+  color: #7b1fa2;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.entry-modal-score-rerank .score-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #7b1fa2;
+}
+
+.entry-modal-score-rerank .score-description {
+  font-size: 11px;
+  color: #7b1fa2;
+}
+
+.entry-modal-metadata {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+}
+
+.entry-modal-metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+}
+
+.entry-modal-metadata-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-modal-metadata-key {
+  font-weight: 500;
+  color: #495057;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.entry-modal-metadata-value {
+  color: #6c757d;
+  font-size: 13px;
+  text-align: right;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-modal-footer-uid {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.entry-modal-footer-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.entry-modal-btn-close {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.entry-modal-btn-open {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

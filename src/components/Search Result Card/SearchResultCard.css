@@ -1,0 +1,135 @@
+.search-result-card {
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.search-result-card-header {
+  margin-bottom: 16px;
+}
+
+.search-result-card-title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #495057;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.search-result-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.search-result-card-tag-content-type {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.search-result-card-tag-locale {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.search-result-card-description {
+  margin-bottom: 16px;
+}
+
+.search-result-card-description p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6c757d;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.search-result-card-scores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-result-card-score-item {
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.search-result-card-score-label {
+  font-size: 10px;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.search-result-card-score-value {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.search-result-card-score-similarity {
+  color: #28a745;
+}
+
+.search-result-card-score-similarity.medium {
+  color: #ffc107;
+}
+
+.search-result-card-score-similarity.low {
+  color: #dc3545;
+}
+
+.search-result-card-score-rerank {
+  color: #28a745;
+}
+
+.search-result-card-score-rerank.medium {
+  color: #ffc107;
+}
+
+.search-result-card-score-rerank.low {
+  color: #dc3545;
+}
+
+.search-result-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.search-result-card-uid {
+  font-size: 12px;
+  color: #6c757d;
+  font-family: monospace;
+}
+
+.search-result-card-action {
+  font-size: 12px;
+  color: #007bff;
+  font-weight: 500;
+}

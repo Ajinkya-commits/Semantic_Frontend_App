@@ -30,12 +30,6 @@ a {
   text-decoration: none;
 }
 
-
-/* common properties for app component content*/
-
-/* 
-not used in app config field , Sidebar
-*/
 .app-component-content {
   padding: 20px;
   text-align: center;
@@ -45,7 +39,6 @@ not used in app config field , Sidebar
   padding: 20px;
 }
 
-/* asset sidebar styles */
 
 /* dashboard styles */
 
@@ -270,29 +263,6 @@ not used in app config field , Sidebar
   font-size: 10px;
   line-height: unset;
 }
-
-/* 
-/* view-raw-config-button *
-.view-raw-config-button {
-  background-color: rgb(212, 208, 208);
-  border: none;
-  width: 18px;
-  height: 19px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.view-raw-config-button span {
-  color: black;
-  font-size: 10px;
-  font-weight: 900;
-}
-
-
-/* MODAL OVERLAY  */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -336,7 +306,6 @@ not used in app config field , Sidebar
   background-color: rgb(18, 18, 18);
   color: white;
   padding: 10px;
-  /* border-radius: 4px; */
   font-family: monospace;
   display: flex;
   justify-content: center;

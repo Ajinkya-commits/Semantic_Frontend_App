@@ -1,12 +1,12 @@
 import React from 'react';
-import type { ContentType } from '../../core/types/config';
+import type { ContentType } from '../../types';
 import './SearchBox.css'
 
 interface SearchBoxProps {
   searchQuery: string;
   onSearchQueryChange: (query: string) => void;
-  selectedContentTypes: string;
-  onContentTypesChange: (type: string) => void;
+  selectedContentTypes: string[];
+  onContentTypesChange: (types: string[]) => void;
   contentTypes: ContentType[];
   isLoadingContentTypes: boolean;
   onSearch: () => void;
@@ -36,6 +36,15 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
     }
   };
 
+  const handleContentTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (value === '') {
+      onContentTypesChange([]);
+    } else {
+      onContentTypesChange([value]);
+    }
+  };
+
   return (
     <div className="search-box">
       <input
@@ -45,7 +54,10 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         onChange={(e) => onSearchQueryChange(e.target.value)}
         onKeyPress={handleKeyPress}
       />
-      <select value={selectedContentTypes} onChange={(e) => onContentTypesChange(e.target.value)}>
+      <select 
+        value={selectedContentTypes[0] || ""} 
+        onChange={handleContentTypeChange}
+      >
         <option value="">All Types</option>
         {contentTypes.map((type) => (
           <option key={type.uid} value={type.uid}>

@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { syncAPI } from '../services/api';
+import { useState, useCallback } from 'react';
+import { indexingApi } from '../services/api';
 
 export interface ReindexResults {
-  indexed: number;
-  skipped: number;
-  errors: number;
-  totalProcessed: number;
+  success: boolean;
+  message?: string;
+  indexed?: number;
+  skipped?: number;
+  errors?: number;
+  totalProcessed?: number;
 }
 
 export const useReindex = () => {
@@ -13,49 +15,43 @@ export const useReindex = () => {
   const [progress, setProgress] = useState(0);
   const [reindexResults, setReindexResults] = useState<ReindexResults | null>(null);
 
-  const handleReindex = async () => {
+  const handleReindex = useCallback(async () => {
     setReindexing(true);
     setProgress(0);
     setReindexResults(null);
 
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) return prev;
-        return prev + Math.random() * 10;
-      });
-    }, 1000);
-
     try {
-      const response = await syncAPI.indexAll({ environment: 'development' });
+      const progressInterval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 90) return prev;
+          return prev + Math.random() * 10;
+        });
+      }, 500);
+
+      const response = await indexingApi.startIndexing();
       
       clearInterval(progressInterval);
       setProgress(100);
+      
+      setTimeout(() => {
+        setReindexResults(response);
+        setReindexing(false);
+      }, 1000);
 
-      if (response.results) {
-        setReindexResults(response.results);
-        
-        setTimeout(() => {
-          setReindexResults(null);
-        }, 5000);
-      } else {
-        setReindexResults({ indexed: 0, skipped: 0, errors: 0, totalProcessed: 0 });
-        
-        setTimeout(() => {
-          setReindexResults(null);
-        }, 5000);
-      }
     } catch (error) {
-      clearInterval(progressInterval);
-      console.error('Reindexing failed:', error);
-      throw error;
-    } finally {
+      setReindexResults({
+        success: false,
+        message: error instanceof Error ? error.message : 'Reindexing failed'
+      });
       setReindexing(false);
+      setProgress(0);
     }
-  };
+  }, []);
 
-  const clearReindexResults = () => {
+  const clearReindexResults = useCallback(() => {
     setReindexResults(null);
-  };
+    setProgress(0);
+  }, []);
 
   return {
     reindexing,
