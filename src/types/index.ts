@@ -16,11 +16,13 @@ export interface SearchResult {
   uid: string;
   title: string;
   content_type_uid: string;
+  contentType: string;
   similarity: number;
   rerankScore?: number;
   content?: any;
   locale?: string;
   updated_at?: string;
+  contentTypes: ContentType[];
   [key: string]: any;
 }
 

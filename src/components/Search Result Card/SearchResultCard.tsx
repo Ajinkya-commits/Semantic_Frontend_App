@@ -5,11 +5,13 @@ import './SearchResultCard.css';
 interface SearchResultCardProps {
   result: SearchResult;
   onShowDetails: (result: SearchResult) => void;
+  searchType?: 'text' | 'image';
 }
 
 export const SearchResultCard: React.FC<SearchResultCardProps> = ({
   result,
   onShowDetails,
+  searchType = 'text',
 }) => {
   const handleClick = () => {
     onShowDetails(result);
@@ -25,25 +27,42 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = ({
   };
 
   return (
-    <div className="search-result-card" onClick={handleClick}>
+    <div className={`search-result-card ${searchType === 'image' ? 'image-card' : 'text-card'}`} onClick={handleClick}>
       <div className="search-result-card-header">
         <h3 className="search-result-card-title">
-          {result.title || '(No title)'}
+          {searchType === 'image' ? '🖼️ ' : '📄 '}
+          {result.title || result.filename || '(No title)'}
         </h3>
         
         <div className="search-result-card-tags">
           <span className="search-result-card-tag-content-type">
-            {result.contentType}
+            {searchType === 'image' ? result.content_type || 'image' : result.contentType}
           </span>
-          <span className="search-result-card-tag-locale">
-            {result.locale}
-          </span>
+          {/* Only show locale for text search results */}
+          {searchType === 'text' && (
+            <span className="search-result-card-tag-locale">
+              {result.locale || 'N/A'}
+            </span>
+          )}
         </div>
       </div>
 
+      {searchType === 'image' && result.url && (
+        <div className="search-result-card-image">
+          <img 
+            src={result.url} 
+            alt={result.alt || result.title || 'Image'} 
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+            }}
+          />
+        </div>
+      )}
+
       <div className="search-result-card-description">
         <p>
-          {result.description || 'No description available.'}
+          {result.description || result.alt || 'No description available.'}
         </p>
       </div>
 
@@ -57,14 +76,17 @@ export const SearchResultCard: React.FC<SearchResultCardProps> = ({
           </div>
         </div>
 
-        <div className="search-result-card-score-item">
-          <div className="search-result-card-score-label">
-            RERANK
+        {/* Only show RERANK for text search results */}
+        {searchType === 'text' && (
+          <div className="search-result-card-score-item">
+            <div className="search-result-card-score-label">
+              RERANK
+            </div>
+            <div className={`search-result-card-score-value search-result-card-score-rerank ${getScoreClass(result.rerankScore, 0.5)}`}>
+              {formatScore(result.rerankScore)}
+            </div>
           </div>
-          <div className={`search-result-card-score-value search-result-card-score-rerank ${getScoreClass(result.rerankScore, 0.5)}`}>
-            {formatScore(result.rerankScore)}
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="search-result-card-footer">

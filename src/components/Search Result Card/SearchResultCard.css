@@ -64,6 +64,21 @@
   overflow: hidden;
 }
 
+.search-result-card-image {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.search-result-card-image img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
 .search-result-card-scores {
   display: grid;
   grid-template-columns: 1fr 1fr;

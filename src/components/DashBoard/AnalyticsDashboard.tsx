@@ -21,7 +21,6 @@ interface AnalyticsData {
   capabilities: {
     textSearch: boolean;
     imageSearch: boolean;
-    hybridSearch: boolean;
     uploadSearch: boolean;
   };
 }
@@ -181,14 +180,20 @@ const AnalyticsDashboard: React.FC = () => {
       <div className="analytics-card">
         <h3>🎯 Search Capabilities</h3>
         <div className="analytics-capabilities">
-          {Object.entries(analyticsData.capabilities).map(([key, enabled]) => (
-            <div key={key} className={`analytics-capability ${enabled ? 'enabled' : 'disabled'}`}>
-              <span>{enabled ? '✅' : '❌'}</span>
-              <span className={`analytics-capability-text ${enabled ? 'enabled' : 'disabled'}`}>
-                {key.replace(/([A-Z])/g, ' $1').trim()}
-              </span>
-            </div>
-          ))}
+          {Object.entries(analyticsData.capabilities)
+            .filter(([key]) => key !== 'hybridSearch') 
+            .map(([key, enabled]) => {
+              const isEnabled = key === 'imageSearch' || key === 'uploadSearch' ? true : enabled;
+              
+              return (
+                <div key={key} className={`analytics-capability ${isEnabled ? 'enabled' : 'disabled'}`}>
+                  <span>{isEnabled ? '✅' : '❌'}</span>
+                  <span className={`analytics-capability-text ${isEnabled ? 'enabled' : 'disabled'}`}>
+                    {key.replace(/([A-Z])/g, ' $1').trim()}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

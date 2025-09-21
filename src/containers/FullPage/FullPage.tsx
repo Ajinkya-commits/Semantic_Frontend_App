@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSearch } from '../../hooks/useSearch';
+import { useUnifiedSearch } from '../../hooks/useUnifiedSearch';
 import { useReindex } from '../../hooks/useReindex';
 import { useContentTypes } from '../../hooks/useContentTypes';
 import { SearchBox } from '../../components/SearchBox/SearchBox';
@@ -19,13 +19,18 @@ const FullPage: React.FC = () => {
   const {
     query: searchQuery,
     setQuery: setSearchQuery,
+    imageUrl,
+    setImageUrl,
     results: searchResults,
     loading: isSearching,
     selectedType: selectedContentTypes,
     setSelectedType: setSelectedContentTypes,
+    searchType,
+    setSearchType,
     handleSearch,
+    handleImageUploadSearch,
     clearSearch,
-  } = useSearch();
+  } = useUnifiedSearch();
 
   const {
     reindexing: isReindexing,
@@ -51,10 +56,10 @@ const FullPage: React.FC = () => {
     <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '32px' }}>
         <h1 style={{ margin: '0 0 8px 0', color: '#495057', fontSize: '28px' }}>
-          🔍 Semantic Search
+          🔍 Unified Semantic Search
         </h1>
         <p style={{ margin: 0, color: '#6c757d', fontSize: '16px' }}>
-          Search your Contentstack entries using natural language powered by AI embeddings
+          Search your Contentstack entries and images using natural language powered by AI embeddings
         </p>
       </div>
 
@@ -122,6 +127,8 @@ const FullPage: React.FC = () => {
           <SearchBox
             searchQuery={searchQuery}
             onSearchQueryChange={setSearchQuery}
+            imageUrl={imageUrl}
+            onImageUrlChange={setImageUrl}
             selectedContentTypes={selectedContentTypes}
             onContentTypesChange={setSelectedContentTypes}
             contentTypes={contentTypes}
@@ -130,57 +137,42 @@ const FullPage: React.FC = () => {
             onClearSearch={clearSearch}
             isSearching={isSearching}
             hasResults={searchResults.length > 0}
+            searchType={searchType}
+            onSearchTypeChange={setSearchType}
+            onImageSearch={handleImageUploadSearch}
           />
 
           {searchResults.length > 0 && (
-            <div style={{ marginTop: '32px' }}>
-              <SearchResults
-                results={searchResults}
-                loading={isSearching}
-                contentTypes={contentTypes}
-                onShowDetails={handleShowDetails}
-                onClearSearch={clearSearch}
-              />
-            </div>
+            <SearchResults
+              results={searchResults}
+              onShowDetails={handleShowDetails}
+              contentTypes={contentTypes}
+              searchType={searchType}
+            />
+          )}
+
+          {isModalOpen && selectedEntry && (
+            <EntryDetailsModal
+              entry={selectedEntry}
+              onClose={handleCloseModal}
+            />
           )}
         </>
       )}
 
       {activeTab === 'indexing' && (
-        <div style={{ marginTop: '24px' }}>
-          <ReindexSection
-            isReindexing={isReindexing}
-            reindexProgress={reindexProgress}
-            reindexResults={reindexResults}
-            onStartReindex={startReindex}
-            onClearResults={clearReindexResults}
-          />
-        </div>
-      )}
-
-      {activeTab === 'analytics' && (
-        <div style={{ marginTop: '24px' }}>
-          <AnalyticsDashboard />
-        </div>
-      )}
-
-      {selectedEntry && (
-        <EntryDetailsModal
-          selectedEntry={selectedEntry}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          contentTypes={contentTypes}
+        <ReindexSection
+          isReindexing={isReindexing}
+          progress={reindexProgress}
+          results={reindexResults}
+          onReindex={startReindex}
+          onClearResults={clearReindexResults}
         />
       )}
 
-      <style>
-        {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}
-      </style>
+      {activeTab === 'analytics' && (
+        <AnalyticsDashboard />
+      )}
     </div>
   );
 };
