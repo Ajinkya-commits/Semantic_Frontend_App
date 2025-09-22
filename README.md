@@ -43,14 +43,16 @@ git clone https://github.com/Ajinkya-commits/Image-Embedding-Service.git
 #### Enable UI Location
 First, you need to enable the UI location in your Contentstack app configuration:
 
-![Enable UI Location](path-to-screenshot-1)
+![Enable UI Location](<img width="1504" height="74" alt="Screenshot 2025-09-23 034636" src="https://github.com/user-attachments/assets/07d72edd-17a2-43fd-b282-23891ff46eb3" />
+)
 
 This allows your app to be displayed within the Contentstack interface.
 
 #### Setup Webhook with ngrok
 Configure webhooks to enable real-time content synchronization:
 
-![Webhook Configuration](path-to-screenshot-2)
+![Webhook Configuration](<img width="582" height="406" alt="Screenshot 2025-09-23 034730" src="https://github.com/user-attachments/assets/4a013337-5c06-42f4-afa4-7115ada6427f" />
+)
 
 1. Install ngrok: `npm install -g ngrok`
 2. Expose your local backend: `ngrok http 8000`
@@ -60,7 +62,8 @@ Configure webhooks to enable real-time content synchronization:
 #### Setup OAuth Configuration
 Configure OAuth for secure authentication:
 
-![OAuth Setup](path-to-screenshot-3)
+![OAuth Setup](<img width="514" height="319" alt="Screenshot 2025-09-23 034753" src="https://github.com/user-attachments/assets/7b3ff696-fc16-4db8-92ca-cc998bcb5f79" />
+)
 
 1. Navigate to your app's OAuth settings in Contentstack
 2. Configure the redirect URLs
@@ -70,7 +73,8 @@ Configure OAuth for secure authentication:
 #### Hosting with Contentstack Launch
 Deploy your app using Contentstack Launch:
 
-![Contentstack Launch](path-to-screenshot-4)
+![Contentstack Launch](<img width="518" height="483" alt="Screenshot 2025-09-23 034827" src="https://github.com/user-attachments/assets/ed402cb8-4863-4141-afc2-5dfa08c259c8" />
+)
 
 1. Connect your GitHub repository
 2. Configure build settings
@@ -129,7 +133,8 @@ npm run dev
 
 After successful installation and setup, your application interface will look like this:
 
-![Application Interface](path-to-screenshot-5)
+![Application Interface](<img width="1101" height="502" alt="Screenshot 2025-09-23 034925" src="https://github.com/user-attachments/assets/5d4057f3-8756-42a9-8d2e-d5e7f80f498f" />
+)
 
 The interface provides:
 - **Search Tab**: Multi-modal search functionality
