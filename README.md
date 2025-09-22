@@ -2,7 +2,6 @@
 
 This repository contains the implementation of a comprehensive semantic search solution for Contentstack CMS. The system enables users to search through their content using natural language queries and image-based searches powered by AI embeddings.
 
-
 ## Repository Links
 
 - **Frontend**: https://github.com/Ajinkya-commits/Semantic_Frontend_App.git
@@ -11,11 +10,41 @@ This repository contains the implementation of a comprehensive semantic search s
 
 ## Features
 
-- **Multi-Modal Search**: Search using text queries, image uploads, or hybrid combinations
-- **Real-time Indexing**: Automatic content synchronization with progress tracking
+- **Text Search**: Search content using natural language queries
+- **Image Search**: Upload images to find visually similar content
+- **Real-time Indexing**: Automatic content synchronization when content is updated
 - **Analytics Dashboard**: View search patterns and performance metrics
 - **Contentstack Integration**: Seamless integration with Contentstack marketplace
-- **AI-Powered**: Uses Cohere for text embeddings and DINOv2 for image embeddings
+
+## Application Interface
+
+After successful installation and setup, your application interface will look like this:
+
+<img width="1101" height="502" alt="Screenshot 2025-09-23 034925" src="https://github.com/user-attachments/assets/5d4057f3-8756-42a9-8d2e-d5e7f80f498f" />
+
+The interface provides:
+- **Search Tab**: Text and image search functionality
+- **Indexing Tab**: Content management and indexing controls  
+- **Analytics Tab**: Search insights and performance metrics
+
+## Features
+
+The semantic search solution provides intelligent content discovery through AI-powered search capabilities. Users can search their Contentstack content using natural language text queries or by uploading images to find visually similar content. The system automatically indexes content when it's published or updated in Contentstack, ensuring search results are always current.
+
+## Workflow
+
+The application follows a simple workflow for content search and management. Users start by installing the app in their Contentstack stack and configuring the necessary webhooks and OAuth settings. Once configured, the system automatically indexes existing content and keeps it synchronized with any changes made in Contentstack. Users can then search through their content using the intuitive interface, with results displayed in an organized, searchable format.
+
+## How It Works
+
+The system operates through three interconnected services working together. The frontend provides the user interface for search and management operations. The backend handles authentication, content processing, and search logic by connecting to Contentstack APIs and managing vector embeddings. The image embedding service processes uploaded images using advanced AI models to generate searchable vector representations. When users perform searches, the system compares query embeddings with stored content embeddings to find the most relevant matches.
+
+## Technologies Used
+
+- **Frontend**: React with TypeScript for the user interface
+- **Backend**: Node.js with Express for API services and MongoDB for data storage
+- **Image Processing**: Python with Flask and DINOv2 model for image embeddings
+- **External Services**: Contentstack CMS, Cohere AI for text embeddings, and Pinecone for vector storage
 
 ## Installation & Setup
 
@@ -58,7 +87,6 @@ Configure webhooks to enable real-time content synchronization:
 
 #### Setup OAuth Configuration
 Configure OAuth for secure authentication:
-
 <img width="514" height="319" alt="Screenshot 2025-09-23 034753" src="https://github.com/user-attachments/assets/7b3ff696-fc16-4db8-92ca-cc998bcb5f79" />
 
 1. Navigate to your app's OAuth settings in Contentstack
@@ -68,7 +96,6 @@ Configure OAuth for secure authentication:
 
 #### Hosting with Contentstack Launch
 Deploy your app using Contentstack Launch:
-
 <img width="518" height="483" alt="Screenshot 2025-09-23 034827" src="https://github.com/user-attachments/assets/ed402cb8-4863-4141-afc2-5dfa08c259c8" />
 
 1. Connect your GitHub repository
@@ -82,20 +109,8 @@ Deploy your app using Contentstack Launch:
 ```bash
 cd Semantic_Search_Backend
 npm install
-
-# Create environment file
 cp src/env.example src/.env
-
 # Configure your API keys in .env
-CONTENTSTACK_API_KEY=your_contentstack_api_key
-CONTENTSTACK_DELIVERY_TOKEN=your_delivery_token
-CONTENTSTACK_ENVIRONMENT=development
-COHERE_API_KEY=your_cohere_api_key
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_ENVIRONMENT=your_pinecone_environment
-MONGODB_URI=mongodb://localhost:27017/contentstack-search
-
-# Start the server
 npm run dev
 ```
 
@@ -103,8 +118,6 @@ npm run dev
 ```bash
 cd Image_Embedding_Service
 pip install -r requirements.txt
-
-# Start the Python service
 python app.py
 ```
 
@@ -112,28 +125,10 @@ python app.py
 ```bash
 cd Semantic_Frontend_App
 npm install
-
-# Configure environment
 cp .env.sample .env
-
-# Set up your environment variables in .env
-VITE_API_BASE_URL=http://localhost:8000
-VITE_IMAGE_SERVICE_URL=http://localhost:5000
-
-# Start the development server
+# Configure environment variables
 npm run dev
 ```
-
-## Application Interface
-
-After successful installation and setup, your application interface will look like this:
-
-<img width="1101" height="502" alt="Screenshot 2025-09-23 034925" src="https://github.com/user-attachments/assets/5d4057f3-8756-42a9-8d2e-d5e7f80f498f" />
-
-The interface provides:
-- **Search Tab**: Multi-modal search functionality
-- **Indexing Tab**: Content management and indexing controls  
-- **Analytics Tab**: Search insights and performance metrics
 
 ## Troubleshooting
 
@@ -163,13 +158,6 @@ You'll need to obtain the following API keys:
 2. **Contentstack Delivery Token**: For content delivery API access
 3. **Cohere API Key**: For text embedding generation (https://cohere.ai/)
 4. **Pinecone API Key**: For vector database storage (https://pinecone.io/)
-
-## Technology Stack
-
-- **Frontend**: React 18, TypeScript, Vite
-- **Backend**: Node.js, Express.js, MongoDB
-- **Image Processing**: Python, Flask, PyTorch, DINOv2
-- **External Services**: Contentstack CMS, Cohere AI, Pinecone Vector DB
 
 ## Usage
 
