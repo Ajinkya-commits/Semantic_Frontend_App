@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import localeTexts from "../../common/locales/en-us/index";
 import parse from "html-react-parser";
 import { useAppConfig } from "../../common/hooks/useAppConfig";
@@ -7,7 +7,7 @@ import "./EntrySidebar.css";
 import Icon from "../../assets/Entry-Sidebar-Logo.svg";
 import ReadOnly from "../../assets/lock.svg";
 import JsonView from "../../assets/JsonView.svg";
-import ConfigModal from "../../components/ConfigModal/ConfigModal";
+import ConfigModal from "../../components/Config Modal/ConfigModal";
 
 const EntrySidebarExtension = () => {
   const appConfig = useAppConfig();

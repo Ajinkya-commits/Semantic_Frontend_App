@@ -7,7 +7,7 @@ import "./CustomField.css";
 import Icon from "../../assets/Custom-Field-Logo.svg";
 import ReadOnly from "../../assets/lock.svg";
 import JsonView from "../../assets/JsonView.svg";
-import ConfigModal from "../../components/ConfigModal/ConfigModal";
+import ConfigModal from "../../components/Config Modal/ConfigModal";
 
 const CustomFieldExtension = () => {
   const appConfig = useAppConfig();

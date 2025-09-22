@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import localeTexts from "../../common/locales/en-us/index";
 import parse from "html-react-parser";
 import { useAppConfig } from "../../common/hooks/useAppConfig";
 import Icon from "../../assets/Full-Page-Logo.svg";
 import ReadOnly from "../../assets/lock.svg";
 import JsonView from "../../assets/JsonView.svg";
-import ConfigModal from "../../components/ConfigModal/ConfigModal";
+import ConfigModal from "../../components/Config Modal/ConfigModal";
 
 import "../index.css";
 import "./GlobalFullPage.css";
