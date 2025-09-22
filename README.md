@@ -27,10 +27,6 @@ The interface provides:
 - **Indexing Tab**: Content management and indexing controls  
 - **Analytics Tab**: Search insights and performance metrics
 
-## Features
-
-The semantic search solution provides intelligent content discovery through AI-powered search capabilities. Users can search their Contentstack content using natural language text queries or by uploading images to find visually similar content. The system automatically indexes content when it's published or updated in Contentstack, ensuring search results are always current.
-
 ## Workflow
 
 1. **Initial Setup**
@@ -111,12 +107,14 @@ git clone https://github.com/Ajinkya-commits/Image-Embedding-Service.git
 
 #### Enable UI Location
 First, you need to enable the UI location in your Contentstack app configuration:
+
 <img width="1504" height="74" alt="Screenshot 2025-09-23 034636" src="https://github.com/user-attachments/assets/0be12a12-2cd6-405d-83b7-bdcdb7d9ad96" />
 
 This allows your app to be displayed within the Contentstack interface.
 
 #### Setup Webhook with ngrok
 Configure webhooks to enable real-time content synchronization:
+
 <img width="582" height="406" alt="Screenshot 2025-09-23 034730" src="https://github.com/user-attachments/assets/4a013337-5c06-42f4-afa4-7115ada6427f" />
 
 1. Install ngrok: `npm install -g ngrok`
@@ -126,6 +124,7 @@ Configure webhooks to enable real-time content synchronization:
 
 #### Setup OAuth Configuration
 Configure OAuth for secure authentication:
+
 <img width="514" height="319" alt="Screenshot 2025-09-23 034753" src="https://github.com/user-attachments/assets/7b3ff696-fc16-4db8-92ca-cc998bcb5f79" />
 
 1. Navigate to your app's OAuth settings in Contentstack
@@ -135,6 +134,7 @@ Configure OAuth for secure authentication:
 
 #### Hosting with Contentstack Launch
 Deploy your app using Contentstack Launch:
+
 <img width="518" height="483" alt="Screenshot 2025-09-23 034827" src="https://github.com/user-attachments/assets/ed402cb8-4863-4141-afc2-5dfa08c259c8" />
 
 1. Connect your GitHub repository
