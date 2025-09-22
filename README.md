@@ -1,321 +1,191 @@
-# Contentstack Semantic Search Frontend
+# Contentstack Semantic Search Integration
 
-A React-based frontend application that provides an intuitive interface for semantic search within Contentstack CMS. Built with TypeScript and modern React patterns for a responsive and user-friendly experience.
+This repository contains the implementation of a comprehensive semantic search solution for Contentstack CMS. The system enables users to search through their content using natural language queries and image-based searches powered by AI embeddings.
 
-## Overview
+## Repository Links
 
-This frontend application serves as the user interface for the Contentstack semantic search system. It allows users to perform text-based, image-based, and hybrid searches across their Contentstack content, manage indexing operations, and view search analytics.
-
-## Architecture
-
-The frontend follows a feature-based modular architecture:
-
-```
-src/
-├── features/
-│   ├── search/          # Search components and logic
-│   │   ├── components/  # Search UI components
-│   │   ├── hooks/       # Search-related hooks
-│   │   └── pages/       # Search page containers
-│   └── indexing/        # Content indexing management
-│       ├── components/  # Indexing UI components
-│       ├── hooks/       # Indexing-related hooks
-│       └── pages/       # Indexing page containers
-├── shared/
-│   ├── components/      # Reusable UI components
-│   └── utils/          # Helper functions and utilities
-├── core/
-│   ├── services/api/   # API integration layer
-│   └── types/          # TypeScript type definitions
-└── App.tsx             # Main application component
-```
-
-## Technology Stack
-
-- **React 18** - Modern UI framework with concurrent features
-- **TypeScript** - Type-safe JavaScript development
-- **Vite** - Fast build tool and development server
-- **Axios** - HTTP client for API communication
-- **Contentstack App SDK** - Integration with Contentstack marketplace
-
-## Installation
-
-1. Install dependencies:
-```bash
-npm install
-```
-
-2. Configure environment variables:
-```bash
-cp .env.sample .env
-```
-
-3. Set up your environment variables in `.env`:
-```
-VITE_API_BASE_URL=http://localhost:8000
-VITE_IMAGE_SERVICE_URL=http://localhost:5000
-```
-
-4. Start the development server:
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:3000`.
-
-## Development Challenges and Solutions
-
-### Component Architecture Refactoring
-
-Initially had a single large component (FullPage.tsx) that was over 900 lines long, making it difficult to maintain and test.
-
-**Problem**: The main component was handling search functionality, indexing operations, content type management, and UI state all in one file.
-
-**Solution**: Broke down the monolithic component into smaller, focused components:
-
-- **SearchBox.tsx** (88 lines) - Handles search input and filters
-- **SearchResults.tsx** (108 lines) - Displays search results with sorting
-- **SearchResultCard.tsx** (171 lines) - Individual result card component
-- **ReindexSection.tsx** (127 lines) - Indexing controls and progress
-- **EntryDetailsModal.tsx** (295 lines) - Detailed entry view modal
-- **LoadingSpinner.tsx** (29 lines) - Reusable loading indicator
-
-Also created custom hooks for state management:
-- **useSearch.ts** (62 lines) - Search state and API calls
-- **useReindex.ts** (68 lines) - Indexing state and progress tracking
-- **useContentTypes.ts** (32 lines) - Content types fetching
-
-### TypeScript Integration Issues
-
-Encountered multiple TypeScript errors due to inconsistent type definitions across components.
-
-**Problem**: Components were expecting different data structures, causing type mismatches and compilation errors.
-
-**Solution**: Implemented a comprehensive type system with proper interfaces:
-
-```typescript
-// Core search types
-export interface SearchResult {
-  id: string;
-  score: number;
-  metadata: {
-    entryUid: string;
-    contentType: string;
-    title: string;
-    url?: string;
-  };
-  entryData?: any;
-}
-
-export interface SearchParams {
-  query: string;
-  topK?: number;
-  filters?: Record<string, any>;
-  threshold?: number;
-}
-```
-
-### Contentstack App Integration
-
-Had to solve iframe sandbox restrictions when running inside the Contentstack marketplace app environment.
-
-**Problem**: Form submissions were being blocked due to iframe sandbox permissions, causing "Blocked form submission" errors.
-
-**Root Cause**: Contentstack apps run in sandboxed iframes without 'allow-forms' permission.
-
-**Solution**: Replaced form elements with div containers and handled submissions through onClick handlers:
-
-```typescript
-// Before: Form-based approach (blocked)
-<form onSubmit={handleSubmit}>
-  <button type="submit">Search</button>
-</form>
-
-// After: Event-based approach (works)
-<div>
-  <button type="button" onClick={handleSubmit}>Search</button>
-</div>
-```
-
-### Stack Detection and Isolation
-
-Needed to properly detect which Contentstack stack the app was running in to ensure data isolation.
-
-**Problem**: Multiple stack installations were seeing each other's data due to insufficient stack context detection.
-
-**Solution**: Implemented multiple stack detection methods:
-
-1. URL parameter extraction from Contentstack app URLs
-2. Hash-based detection from iframe context
-3. Parent window communication via postMessage
-4. Contentstack SDK integration
-5. localStorage fallback for persistence
-
-```typescript
-const detectStackFromUrl = (): string | null => {
-  const urlPatterns = [
-    /\/stack\/([^\/]+)/,
-    /#!\/stack\/([^\/]+)/,
-    /stackApiKey=([^&]+)/
-  ];
-  
-  for (const pattern of urlPatterns) {
-    const match = window.location.href.match(pattern);
-    if (match) return match[1];
-  }
-  
-  return null;
-};
-```
-
-### API Service Architecture
-
-Initially had a monolithic API service that was difficult to maintain and test.
-
-**Problem**: Single large API service file with mixed responsibilities.
-
-**Solution**: Refactored into feature-based API modules:
-
-- **searchApi.ts** - Search-related API calls
-- **indexingApi.ts** - Content indexing operations
-- **configApi.ts** - Configuration management
-- **authApi.ts** - Authentication operations
-- **apiClient.ts** - Shared HTTP client with interceptors
-
-### Content Type Display Issues
-
-Content type dropdowns were showing technical UIDs instead of user-friendly names.
-
-**Problem**: The useContentTypes hook was returning string arrays of UIDs instead of full content type objects.
-
-**Solution**: Updated the hook to fetch complete content type data:
-
-```typescript
-// Before: Only UIDs
-const contentTypes: string[] = ['blog_post', 'product', 'author'];
-
-// After: Full objects with display names
-const contentTypes: ContentType[] = [
-  { uid: 'blog_post', title: 'Blog Post', description: '...' },
-  { uid: 'product', title: 'Product', description: '...' },
-  { uid: 'author', title: 'Author', description: '...' }
-];
-```
+- **Frontend**: https://github.com/Ajinkya-commits/Semantic_Frontend_App.git
+- **Backend**: https://github.com/Ajinkya-commits/Semantic_Search_Backend.git  
+- **Image Embeddings Microservice**: https://github.com/Ajinkya-commits/Image-Embedding-Service.git
 
 ## Features
 
-### Multi-Modal Search Interface
-- **Text Search**: Semantic search with natural language queries
-- **Image Search**: Upload images or provide URLs for visual similarity search
-- **Hybrid Search**: Combine text and image queries with adjustable weights
+- **Multi-Modal Search**: Search using text queries, image uploads, or hybrid combinations
+- **Real-time Indexing**: Automatic content synchronization with progress tracking
+- **Analytics Dashboard**: View search patterns and performance metrics
+- **Contentstack Integration**: Seamless integration with Contentstack marketplace
+- **AI-Powered**: Uses Cohere for text embeddings and DINOv2 for image embeddings
 
-### Content Management
-- **Real-time Indexing**: Monitor indexing progress with live updates
-- **Batch Operations**: Efficient processing of large content volumes
-- **Content Type Filtering**: Filter search results by content type
+## Installation & Setup
 
-### User Experience
-- **Responsive Design**: Works on desktop and mobile devices
-- **Loading States**: Clear feedback during API operations
-- **Error Handling**: User-friendly error messages and recovery options
-- **Search Analytics**: View search patterns and performance metrics
+### Prerequisites
 
-## API Integration
+- Node.js >= 18.0.0
+- Python >= 3.8
+- MongoDB (local or cloud)
+- Contentstack account with API access
 
-The frontend communicates with the backend API and image processing service:
+### Step 1: Clone the Repositories
 
-```typescript
-// Search API integration
-const searchText = async (params: TextSearchParams): Promise<SearchResponse> => {
-  const response = await apiClient.get('/api/search/text', { params });
-  return response.data;
-};
-
-// Image search with file upload
-const searchByUploadedImage = async (file: File, params: ImageSearchParams) => {
-  const formData = new FormData();
-  formData.append('image', file);
-  Object.entries(params).forEach(([key, value]) => {
-    formData.append(key, String(value));
-  });
-  
-  const response = await apiClient.post('/api/search/image/upload', formData);
-  return response.data;
-};
-```
-
-## Testing
-
-Run the test suite:
 ```bash
-npm run test:chrome
+# Clone frontend
+git clone https://github.com/Ajinkya-commits/Semantic_Frontend_App.git
+
+# Clone backend  
+git clone https://github.com/Ajinkya-commits/Semantic_Search_Backend.git
+
+# Clone image service
+git clone https://github.com/Ajinkya-commits/Image-Embedding-Service.git
 ```
 
-Run tests in Firefox:
+### Step 2: Setup Contentstack App Configuration
+
+#### Enable UI Location
+First, you need to enable the UI location in your Contentstack app configuration:
+
+![Enable UI Location](path-to-screenshot-1)
+
+This allows your app to be displayed within the Contentstack interface.
+
+#### Setup Webhook with ngrok
+Configure webhooks to enable real-time content synchronization:
+
+![Webhook Configuration](path-to-screenshot-2)
+
+1. Install ngrok: `npm install -g ngrok`
+2. Expose your local backend: `ngrok http 8000`
+3. Copy the ngrok URL and configure it in Contentstack webhooks
+4. Enable events for: entry.publish, entry.update, entry.delete, asset.publish, asset.update, asset.delete
+
+#### Setup OAuth Configuration
+Configure OAuth for secure authentication:
+
+![OAuth Setup](path-to-screenshot-3)
+
+1. Navigate to your app's OAuth settings in Contentstack
+2. Configure the redirect URLs
+3. Note down your Client ID and Client Secret
+4. Add these to your backend environment variables
+
+#### Hosting with Contentstack Launch
+Deploy your app using Contentstack Launch:
+
+![Contentstack Launch](path-to-screenshot-4)
+
+1. Connect your GitHub repository
+2. Configure build settings
+3. Deploy to your preferred environment
+4. Update your app configuration with the deployed URL
+
+### Step 3: Install Dependencies
+
+#### Backend Setup
 ```bash
-npm run test:firefox
+cd Semantic_Search_Backend
+npm install
+
+# Create environment file
+cp src/env.example src/.env
+
+# Configure your API keys in .env
+CONTENTSTACK_API_KEY=your_contentstack_api_key
+CONTENTSTACK_DELIVERY_TOKEN=your_delivery_token
+CONTENTSTACK_ENVIRONMENT=development
+COHERE_API_KEY=your_cohere_api_key
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENVIRONMENT=your_pinecone_environment
+MONGODB_URI=mongodb://localhost:27017/contentstack-search
+
+# Start the server
+npm run dev
 ```
 
-Run tests with browser UI:
+#### Image Embedding Service Setup
 ```bash
-npm run test:chrome-headed
+cd Image_Embedding_Service
+pip install -r requirements.txt
+
+# Start the Python service
+python app.py
 ```
 
-## Code Quality
-
-Type checking:
+#### Frontend Setup
 ```bash
-npm run typecheck
+cd Semantic_Frontend_App
+npm install
+
+# Configure environment
+cp .env.sample .env
+
+# Set up your environment variables in .env
+VITE_API_BASE_URL=http://localhost:8000
+VITE_IMAGE_SERVICE_URL=http://localhost:5000
+
+# Start the development server
+npm run dev
 ```
 
-Linting:
-```bash
-npm run lint
-```
+## Application Interface
 
-Code formatting:
-```bash
-npm run format
-```
+After successful installation and setup, your application interface will look like this:
 
-## Build and Deployment
+![Application Interface](path-to-screenshot-5)
 
-Build for production:
-```bash
-npm run build
-```
+The interface provides:
+- **Search Tab**: Multi-modal search functionality
+- **Indexing Tab**: Content management and indexing controls  
+- **Analytics Tab**: Search insights and performance metrics
 
-Preview production build:
-```bash
-npm run preview
-```
+## Troubleshooting
 
-The built application will be in the `dist/` directory and can be deployed to any static hosting service.
+### Common Issues I Encountered and Resolved
 
-## Contentstack Marketplace Integration
+#### Issue 1: Python Image Service Connection
+**Problem**: Backend couldn't connect to the Python image embedding service.
+**Solution**: Ensure the Python service is running on the correct port (5000) and the health endpoint returns the proper status format.
 
-This application is designed to run as a Contentstack marketplace app. It integrates with the Contentstack App SDK for:
+#### Issue 2: Webhook Events Not Triggering
+**Problem**: Content updates in Contentstack weren't automatically updating the search index.
+**Solution**: Properly configure webhook URLs using ngrok for local development and ensure all required events are enabled in Contentstack.
 
-- Authentication and authorization
-- Stack context detection
-- Iframe communication
-- Content entry navigation
+#### Issue 3: OAuth Token Refresh
+**Problem**: Authentication tokens were expiring and not refreshing automatically.
+**Solution**: Implement proper token lifecycle management with automatic refresh logic.
 
-## Browser Support
+#### Issue 4: Contentstack App Sandbox Restrictions
+**Problem**: Form submissions were blocked due to iframe sandbox permissions.
+**Solution**: Replace form elements with div containers and handle submissions through onClick handlers.
 
-The application supports modern browsers with ES2020+ features:
-- Chrome 88+
-- Firefox 85+
-- Safari 14+
-- Edge 88+
+## API Keys Required
+
+You'll need to obtain the following API keys:
+
+1. **Contentstack API Key**: From your Contentstack stack settings
+2. **Contentstack Delivery Token**: For content delivery API access
+3. **Cohere API Key**: For text embedding generation (https://cohere.ai/)
+4. **Pinecone API Key**: For vector database storage (https://pinecone.io/)
+
+## Technology Stack
+
+- **Frontend**: React 18, TypeScript, Vite
+- **Backend**: Node.js, Express.js, MongoDB
+- **Image Processing**: Python, Flask, PyTorch, DINOv2
+- **External Services**: Contentstack CMS, Cohere AI, Pinecone Vector DB
+
+## Usage
+
+1. **Install the app** in your Contentstack stack
+2. **Configure your content types** for indexing
+3. **Run the initial indexing** to populate the search database
+4. **Start searching** using text queries or image uploads
+5. **Monitor performance** through the analytics dashboard
 
 ## Contributing
 
-1. Create a feature branch from main
-2. Make your changes following the established patterns
-3. Add tests for new components and functionality
-4. Ensure TypeScript compilation passes
-5. Submit a pull request with a clear description
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
