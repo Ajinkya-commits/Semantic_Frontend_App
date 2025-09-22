@@ -174,6 +174,5 @@ npm run dev
 You'll need to obtain the following API keys:
 
 1. **Contentstack API Key**: From your Contentstack stack settings
-2. **Contentstack Delivery Token**: For content delivery API access
-3. **Cohere API Key**: For text embedding generation (https://cohere.ai/)
-4. **Pinecone API Key**: For vector database storage (https://pinecone.io/)
+2. **Cohere API Key**: For text embedding generation (https://cohere.ai/)
+3. **Pinecone API Key**: For vector database storage (https://pinecone.io/)
