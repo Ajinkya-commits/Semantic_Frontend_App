@@ -33,11 +33,50 @@ The semantic search solution provides intelligent content discovery through AI-p
 
 ## Workflow
 
-The application follows a simple workflow for content search and management. Users start by installing the app in their Contentstack stack and configuring the necessary webhooks and OAuth settings. Once configured, the system automatically indexes existing content and keeps it synchronized with any changes made in Contentstack. Users can then search through their content using the intuitive interface, with results displayed in an organized, searchable format.
+1. **Initial Setup**
+   - Install the app in your Contentstack stack
+   - Configure webhooks and OAuth settings
+   - Set up the three microservices (frontend, backend, image service)
+
+2. **Content Indexing**
+   - System automatically indexes existing content from Contentstack
+   - Webhooks keep content synchronized with any changes
+   - Image assets are processed for visual similarity search
+
+3. **Search Operations**
+   - Users perform text searches using natural language queries
+   - Image searches by uploading files or providing URLs
+   - Results are displayed with relevance scoring and metadata
+
+4. **Analytics and Monitoring**
+   - Track search patterns and user behavior
+   - Monitor system performance and indexing status
+   - View content popularity and search success rates
 
 ## How It Works
 
-The system operates through three interconnected services working together. The frontend provides the user interface for search and management operations. The backend handles authentication, content processing, and search logic by connecting to Contentstack APIs and managing vector embeddings. The image embedding service processes uploaded images using advanced AI models to generate searchable vector representations. When users perform searches, the system compares query embeddings with stored content embeddings to find the most relevant matches.
+1. **Frontend Interface**
+   - Provides user interface for search and management operations
+   - Built with React and TypeScript for responsive design
+   - Integrates with Contentstack App SDK for marketplace compatibility
+
+2. **Backend Processing**
+   - Handles authentication and OAuth token management
+   - Processes content from Contentstack APIs
+   - Manages vector embeddings and search logic
+   - Stores data in MongoDB and Pinecone vector database
+
+3. **Image Embedding Service**
+   - Processes uploaded images using DINOv2 AI model
+   - Generates vector representations for visual similarity
+   - Provides REST API endpoints for image processing
+   - Runs independently as Python Flask microservice
+
+4. **Search Execution**
+   - Converts user queries into vector embeddings
+   - Compares query vectors with stored content embeddings
+   - Returns ranked results based on similarity scores
+   - Enriches results with original Contentstack data
 
 ## Technologies Used
 
@@ -130,26 +169,6 @@ cp .env.sample .env
 npm run dev
 ```
 
-## Troubleshooting
-
-### Common Issues I Encountered and Resolved
-
-#### Issue 1: Python Image Service Connection
-**Problem**: Backend couldn't connect to the Python image embedding service.
-**Solution**: Ensure the Python service is running on the correct port (5000) and the health endpoint returns the proper status format.
-
-#### Issue 2: Webhook Events Not Triggering
-**Problem**: Content updates in Contentstack weren't automatically updating the search index.
-**Solution**: Properly configure webhook URLs using ngrok for local development and ensure all required events are enabled in Contentstack.
-
-#### Issue 3: OAuth Token Refresh
-**Problem**: Authentication tokens were expiring and not refreshing automatically.
-**Solution**: Implement proper token lifecycle management with automatic refresh logic.
-
-#### Issue 4: Contentstack App Sandbox Restrictions
-**Problem**: Form submissions were blocked due to iframe sandbox permissions.
-**Solution**: Replace form elements with div containers and handle submissions through onClick handlers.
-
 ## API Keys Required
 
 You'll need to obtain the following API keys:
@@ -158,22 +177,3 @@ You'll need to obtain the following API keys:
 2. **Contentstack Delivery Token**: For content delivery API access
 3. **Cohere API Key**: For text embedding generation (https://cohere.ai/)
 4. **Pinecone API Key**: For vector database storage (https://pinecone.io/)
-
-## Usage
-
-1. **Install the app** in your Contentstack stack
-2. **Configure your content types** for indexing
-3. **Run the initial indexing** to populate the search database
-4. **Start searching** using text queries or image uploads
-5. **Monitor performance** through the analytics dashboard
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
