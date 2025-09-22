@@ -13,7 +13,6 @@ export const useUnifiedSearch = () => {
   const [selectedType, setSelectedType] = useState<string[]>([]);
   const [searchType, setSearchType] = useState<SearchType>('text');
 
-  // Clear results when switching between search types
   useEffect(() => {
     setResults([]);
     setError(null);
@@ -112,7 +111,6 @@ export const useUnifiedSearch = () => {
   }, []);
 
   return {
-    // Search state
     query,
     setQuery,
     imageUrl,
@@ -124,8 +122,6 @@ export const useUnifiedSearch = () => {
     setSelectedType,
     searchType,
     setSearchType,
-    
-    // Search actions
     handleSearch,
     handleImageUploadSearch,
     clearSearch,

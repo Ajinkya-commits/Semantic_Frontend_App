@@ -25,7 +25,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
       const rerankPass = (r.rerankScore ?? 0) >= MIN_RERANK_SCORE;
       return similarityPass || rerankPass;
     })
-    .slice(0, searchType === 'image' ? 12 : 5); // Show more results for image search
+    .slice(0, searchType === 'image' ? 12 : 5); 
 
   if (filteredResults.length === 0) {
     return (
