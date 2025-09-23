@@ -74,12 +74,14 @@ The interface provides:
    - Returns ranked results based on similarity scores
    - Enriches results with original Contentstack data
 
-## Technologies Used
+##Technologies Used
 
-- **Frontend**: React with TypeScript for the user interface
-- **Backend**: Node.js with Express for API services and MongoDB for data storage
-- **Image Processing**: Python with Flask and DINOv2 model for image embeddings
-- **External Services**: Contentstack CMS, Cohere AI for text embeddings, and Pinecone for vector storage
+Frontend: React with TypeScript for the user interface
+Backend: Node.js with Express for API services and MongoDB for data storage
+Image Processing: Python with Flask and DINOv2 (open-source image embedding model by Meta AI)
+Text Embedding: Cohere AI Embed v4 model for generating high-quality text embeddings
+Reranking: Cohere Rerank v3.5 model for result reranking after initial vector search
+External Services: Contentstack CMS for content management and Pinecone for vector storage and similarity search
 
 ## Installation & Setup
 
